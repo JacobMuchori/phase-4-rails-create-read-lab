@@ -4,9 +4,14 @@ class PlantsController < ApplicationController
         plants = Plant.all
         render json: plants
     end
+    
     def show
         plant = Plant.find_by(id: params[:id])
-        render json: plant
+        if plant
+            render json: plant
+        else
+            render json: { error: "No such plant" }, status: :not_found
+        end 
     end
 
     def create
